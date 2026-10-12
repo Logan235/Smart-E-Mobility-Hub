@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "./api/client";
+import { Module1SharedEV } from "./Module1";
 
 interface SharedEV {
   id: string;
@@ -123,4 +124,8 @@ export default function App() {
       </div>
     </div>
   );
+}
+
+export function Apptest() {
+  return <Module1SharedEV />;
 }
