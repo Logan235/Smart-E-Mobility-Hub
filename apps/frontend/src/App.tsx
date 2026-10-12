@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "./api/client";
 import { Module1SharedEV } from "./Module1";
+import { IncidentSimulationCenter } from "./components/incident-simulation/IncidentSimulationCenter";
 
 interface SharedEV {
   id: string;
@@ -127,5 +128,112 @@ export default function App() {
 }
 
 export function Apptest() {
-  return <Module1SharedEV />;
+  const [currentModule, setCurrentModule] = useState<"module1" | "module3">("module3");
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        fontFamily: "'DM Sans', sans-serif",
+        backgroundColor: "#f6f8f7",
+      }}
+    >
+      {/* Ecosystem Top Navigation Bar */}
+      <nav
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "10px 24px",
+          backgroundColor: "#ffffff",
+          borderBottom: "1px solid #e8eeeb",
+          position: "sticky",
+          top: 0,
+          zIndex: 100,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div
+            style={{
+              width: "32px",
+              height: "32px",
+              borderRadius: "8px",
+              backgroundColor: "#087e5b",
+              color: "#ffffff",
+              display: "grid",
+              placeItems: "center",
+              fontWeight: 800,
+              fontFamily: "'Manrope', sans-serif",
+            }}
+          >
+            N
+          </div>
+          <div>
+            <div style={{ fontWeight: 800, fontSize: "14px", color: "#172b25" }}>
+              Smart E-Mobility Hub
+            </div>
+            <div style={{ fontSize: "10px", color: "#8b9992" }}>
+              Hệ thống Vận hành Đa Phân hệ ĐHQG-HCM
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: "8px" }}>
+          <button
+            type="button"
+            onClick={() => setCurrentModule("module1")}
+            style={{
+              padding: "7px 14px",
+              borderRadius: "8px",
+              border:
+                currentModule === "module1"
+                  ? "1px solid #11936a"
+                  : "1px solid #e8eeeb",
+              backgroundColor:
+                currentModule === "module1" ? "#eaf6f0" : "#ffffff",
+              color: currentModule === "module1" ? "#087e5b" : "#62716a",
+              fontWeight: 700,
+              fontSize: "12px",
+              cursor: "pointer",
+              transition: "all 0.15s",
+            }}
+          >
+            🚗 Phân hệ 1: Shared EV (Sinh viên)
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setCurrentModule("module3")}
+            style={{
+              padding: "7px 14px",
+              borderRadius: "8px",
+              border:
+                currentModule === "module3"
+                  ? "1px solid #11936a"
+                  : "1px solid #e8eeeb",
+              backgroundColor:
+                currentModule === "module3" ? "#eaf6f0" : "#ffffff",
+              color: currentModule === "module3" ? "#087e5b" : "#62716a",
+              fontWeight: 700,
+              fontSize: "12px",
+              cursor: "pointer",
+              transition: "all 0.15s",
+            }}
+          >
+            🎛️ Phân hệ 3: Incident & Simulation (Operator)
+          </button>
+        </div>
+      </nav>
+
+      <div style={{ flex: 1 }}>
+        {currentModule === "module1" ? (
+          <Module1SharedEV />
+        ) : (
+          <IncidentSimulationCenter />
+        )}
+      </div>
+    </div>
+  );
 }
