@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { apiClient } from "./api/client";
 import { Module1SharedEV } from "./Module1";
 import { IncidentSimulationCenter } from "./components/incident-simulation/IncidentSimulationCenter";
+import { Module4ResourceRedistribution } from "./Module4"; 
 
 interface SharedEV {
   id: string;
@@ -128,7 +129,8 @@ export default function App() {
 }
 
 export function Apptest() {
-  const [currentModule, setCurrentModule] = useState<"module1" | "module3">("module3");
+  const [currentModule, setCurrentModule] = useState<"module1" | "module3" | "module4">("module3");
+
 
   return (
     <div
@@ -224,15 +226,35 @@ export function Apptest() {
           >
             🎛️ Phân hệ 3: Incident & Simulation (Operator)
           </button>
+          <button
+            type="button"
+            onClick={() => setCurrentModule("module4")}
+            style={{
+              padding: "7px 14px",
+              borderRadius: "8px",
+              border:
+                currentModule === "module4"
+                  ? "1px solid #11936a"
+                  : "1px solid #e8eeeb",
+              backgroundColor:
+                currentModule === "module4" ? "#eaf6f0" : "#ffffff",
+              color: currentModule === "module4" ? "#087e5b" : "#62716a",
+              fontWeight: 700,
+              fontSize: "12px",
+              cursor: "pointer",
+              transition: "all 0.15s",
+            }}
+          >
+            🔄 Phân hệ 4: Resource Redistribution (Admin)
+          </button>
         </div>
       </nav>
 
       <div style={{ flex: 1 }}>
-        {currentModule === "module1" ? (
-          <Module1SharedEV />
-        ) : (
-          <IncidentSimulationCenter />
-        )}
+        {currentModule === "module1" && <Module1SharedEV />}
+{currentModule === "module3" && <IncidentSimulationCenter />}
+{currentModule === "module4" && <Module4ResourceRedistribution />}
+
       </div>
     </div>
   );
