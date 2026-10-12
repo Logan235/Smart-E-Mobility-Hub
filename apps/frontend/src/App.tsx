@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "./api/client";
 import { Module1SharedEV } from "./Module1";
+import  Module2 from "./Module2";
+
 import { IncidentSimulationCenter } from "./components/incident-simulation/IncidentSimulationCenter";
 import { Module4ResourceRedistribution } from "./Module4"; 
 
@@ -129,7 +131,7 @@ export default function App() {
 }
 
 export function Apptest() {
-  const [currentModule, setCurrentModule] = useState<"module1" | "module3" | "module4">("module3");
+  const [currentModule, setCurrentModule] = useState<"module1" |"module2"| "module3" | "module4">("module3");
 
 
   return (
@@ -204,7 +206,28 @@ export function Apptest() {
           >
             🚗 Phân hệ 1: Shared EV (Sinh viên)
           </button>
-
+            {/* CHỈ THÊM NÚT NÀY CHO PHÂN HỆ 2 CỦA BẠN */}
+          <button
+            type="button"
+            onClick={() => setCurrentModule("module2")}
+            style={{
+              padding: "7px 14px",
+              borderRadius: "8px",
+              border:
+                currentModule === "module2"
+                  ? "1px solid #3b82f6"
+                  : "1px solid #e8eeeb",
+              backgroundColor:
+                currentModule === "module2" ? "#eff6ff" : "#ffffff",
+              color: currentModule === "module2" ? "#2563eb" : "#62716a",
+              fontWeight: 700,
+              fontSize: "12px",
+              cursor: "pointer",
+              transition: "all 0.15s",
+            }}
+          >
+            🛵 Phân hệ 2: Personal EV
+          </button>
           <button
             type="button"
             onClick={() => setCurrentModule("module3")}
@@ -224,6 +247,8 @@ export function Apptest() {
               transition: "all 0.15s",
             }}
           >
+            
+
             🎛️ Phân hệ 3: Incident & Simulation (Operator)
           </button>
           <button
@@ -252,6 +277,8 @@ export function Apptest() {
 
       <div style={{ flex: 1 }}>
         {currentModule === "module1" && <Module1SharedEV />}
+
+{currentModule === "module2" && <Module2 />}
 {currentModule === "module3" && <IncidentSimulationCenter />}
 {currentModule === "module4" && <Module4ResourceRedistribution />}
 
