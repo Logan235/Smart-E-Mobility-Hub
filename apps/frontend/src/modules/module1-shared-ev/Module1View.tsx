@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import "./Module1.css";
+import "../../Module1.css";
 
 type VehicleStatus =
   | "Available"

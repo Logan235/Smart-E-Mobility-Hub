@@ -117,12 +117,6 @@ const evStatusMeta: Record<EVStatus, { label: string; cls: string }> = {
   MAINTENANCE: { label: "Bảo trì", cls: "maintenance" },
 };
 
-const chargerStatusMeta: Record<ChargerStatus, { label: string; cls: string }> = {
-  FREE: { label: "Trống", cls: "free" },
-  BUSY: { label: "Đang sạc", cls: "busy" },
-  FAULTY: { label: "Lỗi", cls: "faulty" },
-  MAINTENANCE: { label: "Bảo trì", cls: "maintenance" },
-};
 
 function StatusPill({ status }: { status: EVStatus }) {
   const meta = evStatusMeta[status];

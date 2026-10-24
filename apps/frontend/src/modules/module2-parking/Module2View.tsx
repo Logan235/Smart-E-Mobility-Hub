@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Module1.css"; // Tái sử dụng toàn bộ CSS của Module 1
-import "./Module2.css"; // Chỉ chứa CSS đặc thù cho QR code
+import "../../Module1.css"; // Chỉ chứa CSS đặc thù cho QR code
 
 type SlotStatus = "Available" | "Reserved" | "Occupied" | "Maintenance";
 
