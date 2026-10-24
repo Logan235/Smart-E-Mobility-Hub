@@ -67,7 +67,7 @@ export const SimulationResultView: React.FC<SimulationResultViewProps> = ({
               color: waitDelta > 0 ? "#c74b47" : "#087e5b",
             }}
           >
-            {waitDelta > 0 ? `Tăng thêm: +${waitDelta.toFixed(1)} phút` : "Bình thường"}
+            {waitDelta > 0 ? `Tăng thêm: +${waitDelta.toFixed(1)} phút` : "Normal"}
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@ export const SimulationResultView: React.FC<SimulationResultViewProps> = ({
                   fontWeight: 700,
                 }}
               >
-                {item.projectedLoad}% {item.status === "Critical" ? "(Nghẽn nghiêm trọng)" : item.status === "Warning" ? "(Cảnh báo nghẽn)" : "(Thông suốt)"}
+                {item.projectedLoad}% {item.status === "Critical" ? "(Nghẽn nghiêm trọng)" : item.status === "Warning" ? "(Warning nghẽn)" : "(Thông suốt)"}
               </span>
             </div>
             <div className="bar-track">

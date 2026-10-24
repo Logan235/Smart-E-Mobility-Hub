@@ -99,11 +99,11 @@ export default function Module2() {
         <div className="page-container">
           <div className="page-heading">
             <div>
-              <div className="eyebrow">MODULE 2</div>
+              <div className="eyebrow">PERSONAL EV & CHARGING</div>
               <h1>{activeTab === "parking" ? "Reserve Parking Spot" : activeTab === "charging" ? "Book Charging Slot" : "Active Session"}</h1>
               <p className="page-subtitle">Manage your personal electric vehicle parking, charging schedules, and check-in.</p>
             </div>
-            <div className="date-chip"><span>◷</span> Grace Period: 15 mins</div>
+            <div className="date-chip"><span>◷</span> Grace Period: 15m</div>
           </div>
 
           <section className="stats-grid">

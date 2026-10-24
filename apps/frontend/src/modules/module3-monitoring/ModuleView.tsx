@@ -112,8 +112,8 @@ const evStatusMeta: Record<EVStatus, { label: string; cls: string }> = {
   AVAILABLE: { label: "Rảnh", cls: "available" },
   RESERVED: { label: "Đã đặt", cls: "reserved" },
   IN_USE: { label: "Đang dùng", cls: "in-use" },
-  CHARGING: { label: "Đang sạc", cls: "charging" },
-  WAITING_CHARGING: { label: "Chờ sạc", cls: "waiting" },
+  CHARGING: { label: "Charging", cls: "charging" },
+  WAITING_CHARGING: { label: "Waiting", cls: "waiting" },
   MAINTENANCE: { label: "Bảo trì", cls: "maintenance" },
 };
 
@@ -203,7 +203,7 @@ export function Module2NetworkDashboard() {
           batteryLevel: ev.batteryLevel,
           state: "waiting",
           priority: ev.batteryLevel < CRITICAL_BATTERY_THRESHOLD ? "high" : "normal",
-          estimatedWait: ev.batteryLevel < CRITICAL_BATTERY_THRESHOLD ? "Ưu tiên cao" : "~5 phút",
+          estimatedWait: ev.batteryLevel < CRITICAL_BATTERY_THRESHOLD ? "High Priority" : "~5 phút",
         });
       }
     });
@@ -257,7 +257,7 @@ export function Module2NetworkDashboard() {
   return (
     <div className="module4-container">
       <div className="module4-tabs">
-        <button className="tab-button active">📡 Tổng quan mạng lưới &amp; Sạc thông minh</button>
+        <button className="tab-button active">Network & Smart Charging Dashboard</button>
       </div>
       <div className="module4-content">
 
@@ -265,9 +265,9 @@ export function Module2NetworkDashboard() {
           <div className="m2-page-heading">
             <div>
               <div className="m2-eyebrow">NETWORK &amp; SMART CHARGING DASHBOARD</div>
-              <h1>Tổng quan mạng lưới &amp; Sạc thông minh</h1>
+              <h1>Network & Smart Charging Dashboard</h1>
               <p className="m2-subtitle">
-                Cái nhìn toàn cảnh về tình trạng tài nguyên, luân chuyển phương tiện và hàng chờ sạc thông minh trên toàn hệ thống.
+                Comprehensive overview of resource status, vehicle flow, and smart charging queues across the entire system.
               </p>
             </div>
           </div>
@@ -275,29 +275,29 @@ export function Module2NetworkDashboard() {
           {/* KPI summary */}
           <section className="m2-stats">
             <div className="m2-stat-card">
-              <div className="m2-stat-top"><span>Xe rảnh</span><span className="m2-stat-icon ok">✓</span></div>
+              <div className="m2-stat-top"><span>Available EVs</span><span className="m2-stat-icon ok">✓</span></div>
               <strong>{totalAvailable.toString().padStart(2, "0")}</strong>
-              <small>trong {evs.length} xe</small>
+              <small>out of {evs.length} total</small>
             </div>
             <div className="m2-stat-card">
-              <div className="m2-stat-top"><span>Đang sử dụng</span><span className="m2-stat-icon purple">↗</span></div>
+              <div className="m2-stat-top"><span>In Use / Reserved</span><span className="m2-stat-icon purple">↗</span></div>
               <strong>{totalInUse.toString().padStart(2, "0")}</strong>
-              <small>đã đặt / đang dùng</small>
+              <small>reserved / active</small>
             </div>
             <div className="m2-stat-card">
-              <div className="m2-stat-top"><span>Đang sạc / chờ sạc</span><span className="m2-stat-icon amber">⚡</span></div>
+              <div className="m2-stat-top"><span>Charging / Waiting</span><span className="m2-stat-icon amber">⚡</span></div>
               <strong>{totalCharging.toString().padStart(2, "0")}</strong>
               <small>{chargingQueue.filter((q) => q.state === "waiting").length} đang chờ</small>
             </div>
             <div className="m2-stat-card">
-              <div className="m2-stat-top"><span>Cổng sạc trống</span><span className="m2-stat-icon info">⌁</span></div>
+              <div className="m2-stat-top"><span>Free Chargers</span><span className="m2-stat-icon info">⌁</span></div>
               <strong>{totalFreeChargers.toString().padStart(2, "0")}</strong>
               <small>trong {chargers.length} cổng</small>
             </div>
             <div className="m2-stat-card">
-              <div className="m2-stat-top"><span>Hub cần chú ý</span><span className="m2-stat-icon critical">⚠</span></div>
+              <div className="m2-stat-top"><span>Hubs Needing Attention</span><span className="m2-stat-icon critical">⚠</span></div>
               <strong>{criticalHubs.toString().padStart(2, "0")}</strong>
-              <small>quá tải / thiếu xe</small>
+              <small>imbalanced / low stock</small>
             </div>
           </section>
 
@@ -315,13 +315,13 @@ export function Module2NetworkDashboard() {
             <section className="m2-panel m2-hub-map">
               <div className="m2-panel-header">
                 <div>
-                  <h2><span className="m2-panel-icon">🗺</span> Bản đồ mạng lưới trực tiếp</h2>
+                  <h2><span className="m2-panel-icon">🗺</span> Live Network Map</h2>
                   <p>Tình trạng từng Hub — thanh progress thể hiện tỷ lệ lấp đầy.</p>
                 </div>
                 <span className="m2-legend-inline">
-                  <span className="m2-legend-dot normal" /> Bình thường
-                  <span className="m2-legend-dot warning" /> Cảnh báo
-                  <span className="m2-legend-dot critical" /> Quá tải
+                  <span className="m2-legend-dot normal" /> Normal
+                  <span className="m2-legend-dot warning" /> Warning
+                  <span className="m2-legend-dot critical" /> Overload
                 </span>
               </div>
 
@@ -335,7 +335,7 @@ export function Module2NetworkDashboard() {
                       </div>
                       {imbalance !== "normal" && (
                         <span className={`m2-imbalance-badge ${imbalance}`}>
-                          {imbalance === "critical" ? "Quá tải" : "Cảnh báo"}
+                          {imbalance === "critical" ? "Overload" : "Warning"}
                         </span>
                       )}
                     </div>
@@ -353,7 +353,7 @@ export function Module2NetworkDashboard() {
 
                     <div className="m2-hub-metrics">
                       <div className="m2-metric">
-                        <span className="m2-metric-label">Xe rảnh</span>
+                        <span className="m2-metric-label">Available EVs</span>
                         <span className="m2-metric-value ok">{available}</span>
                         <span className="m2-metric-total">/ {hub.evCapacity}</span>
                       </div>
@@ -362,7 +362,7 @@ export function Module2NetworkDashboard() {
                         <span className="m2-metric-value purple">{inUse}</span>
                       </div>
                       <div className="m2-metric">
-                        <span className="m2-metric-label">Đang sạc</span>
+                        <span className="m2-metric-label">Charging</span>
                         <span className="m2-metric-value amber">{charging}</span>
                       </div>
                       <div className="m2-metric">
@@ -386,16 +386,16 @@ export function Module2NetworkDashboard() {
             <section className="m2-panel m2-charging-panel">
               <div className="m2-panel-header">
                 <div>
-                  <h2><span className="m2-panel-icon">⚡</span> Hàng đợi sạc thông minh</h2>
-                  <p>Xe dưới {CRITICAL_BATTERY_THRESHOLD}% được gắn badge "Ưu tiên cao" (FR-AUTO-02).</p>
+                  <h2><span className="m2-panel-icon">⚡</span> Smart Charging Queue</h2>
+                  <p>Xe dưới {CRITICAL_BATTERY_THRESHOLD}% được gắn badge "High Priority" (FR-AUTO-02).</p>
                 </div>
                 <span className="m2-result-count">{chargingQueue.length} xe</span>
               </div>
 
               <div className="m2-queue-tabs">
-                <span className="m2-tab active">Tất cả ({chargingQueue.length})</span>
-                <span className="m2-tab">Đang sạc ({chargingQueue.filter((q) => q.state === "charging").length})</span>
-                <span className="m2-tab">Chờ sạc ({chargingQueue.filter((q) => q.state === "waiting").length})</span>
+                <span className="m2-tab active">All ({chargingQueue.length})</span>
+                <span className="m2-tab">Charging ({chargingQueue.filter((q) => q.state === "charging").length})</span>
+                <span className="m2-tab">Waiting ({chargingQueue.filter((q) => q.state === "waiting").length})</span>
               </div>
 
               <div className="m2-queue-list">
@@ -403,7 +403,7 @@ export function Module2NetworkDashboard() {
                   <div className="m2-empty">
                     <div className="m2-empty-icon">⚡</div>
                     <h3>Không có xe trong hàng đợi</h3>
-                    <p>Tất cả cổng sạc đang trống.</p>
+                    <p>All cổng sạc đang trống.</p>
                   </div>
                 )}
                 {chargingQueue.map((item) => (
@@ -416,7 +416,7 @@ export function Module2NetworkDashboard() {
                         <strong>{item.evCode}</strong>
                         <span className="m2-queue-hub">⌖ {hubName(item.hubId)}</span>
                         {item.priority === "high" && (
-                          <span className="m2-priority-badge">Ưu tiên cao</span>
+                          <span className="m2-priority-badge">High Priority</span>
                         )}
                       </div>
                       <BatteryBar value={item.batteryLevel} />

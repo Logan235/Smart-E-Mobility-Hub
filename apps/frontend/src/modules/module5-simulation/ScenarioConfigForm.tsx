@@ -24,17 +24,17 @@ export const ScenarioConfigForm: React.FC<ScenarioConfigFormProps> = ({
     <div className="config-box">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{ fontSize: "12px", fontWeight: 700, color: "#172b25" }}>
-          ⚙️ Cấu hình Kịch bản What-if
+          ⚙️ Scenario Configuration What-if
         </span>
         <span style={{ fontSize: "11px", color: "#62716a" }}>
-          Môi trường mô phỏng ảo (Sandbox)
+          Sandbox Environment (Sandbox)
         </span>
       </div>
 
       {/* Target Hub Selection */}
       <div className="form-group">
         <label className="form-label-row" htmlFor="target-hub">
-          <span>Trạm áp dụng kịch bản chính</span>
+          <span>Hub áp dụng kịch bản chính</span>
         </label>
         <select
           id="target-hub"
@@ -56,7 +56,7 @@ export const ScenarioConfigForm: React.FC<ScenarioConfigFormProps> = ({
       <div className="form-group">
         <div className="form-label-row">
           <label htmlFor="charger-failure">
-            Tỷ lệ sự cố phần cứng cổng sạc tại trạm
+            Hardware Failure Rate cổng sạc tại trạm
           </label>
           <span className="value-tag">{scenario.chargerFailureRate}% hỏng hóc</span>
         </div>
@@ -76,7 +76,7 @@ export const ScenarioConfigForm: React.FC<ScenarioConfigFormProps> = ({
           }
         />
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: "10px", color: "#8b9992" }}>
-          <span>0% (Bình thường)</span>
+          <span>0% (Normal)</span>
           <span>50% (Sự cố lớn)</span>
           <span>100% (Mất điện toàn trạm)</span>
         </div>
@@ -86,7 +86,7 @@ export const ScenarioConfigForm: React.FC<ScenarioConfigFormProps> = ({
       <div className="form-group">
         <div className="form-label-row">
           <label htmlFor="demand-surge">
-            Đột biến nhu cầu di chuyển (Demand Surge)
+            Demand Surge (Demand Surge)
           </label>
           <span className="value-tag">+{scenario.demandSurgeRate}% nhu cầu</span>
         </div>
@@ -115,7 +115,7 @@ export const ScenarioConfigForm: React.FC<ScenarioConfigFormProps> = ({
       {/* Time Window */}
       <div className="form-group">
         <label className="form-label-row" htmlFor="time-window">
-          <span>Khung giờ dự phóng kịch bản</span>
+          <span>Simulation Timeframe</span>
         </label>
         <select
           id="time-window"

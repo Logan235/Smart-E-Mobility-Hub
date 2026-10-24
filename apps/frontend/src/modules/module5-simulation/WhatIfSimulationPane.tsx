@@ -33,7 +33,7 @@ export const WhatIfSimulationPane: React.FC<WhatIfSimulationPaneProps> = ({
       <div className="pane-header">
         <div>
           <h2>
-            <span>📈</span> Bảng điều khiển Mô phỏng (What-if Simulation Engine)
+            <span>📈</span> Simulation Dashboard (What-if Simulation Engine)
           </h2>
           <p className="pane-subtitle">
             Giả lập kịch bản sự cố phần cứng & đột biến tải, đánh giá điểm nghẽn và phê duyệt hành động
@@ -50,7 +50,7 @@ export const WhatIfSimulationPane: React.FC<WhatIfSimulationPaneProps> = ({
       </div>
 
       <div className="pane-body">
-        {/* Form Cấu hình Kịch bản */}
+        {/* Form Scenario Configuration */}
         <ScenarioConfigForm
           scenario={scenario}
           onScenarioChange={onScenarioChange}
@@ -61,7 +61,7 @@ export const WhatIfSimulationPane: React.FC<WhatIfSimulationPaneProps> = ({
         {/* Khối Kết quả Giả lập */}
         <SimulationResultView results={results} />
 
-        {/* Khối Đề xuất Giảm thiểu & Phê duyệt */}
+        {/* Khối Đề xuất Giảm thiểu & Approve */}
         <MitigationCardList
           proposals={proposals}
           onApproveProposal={onApproveProposal}

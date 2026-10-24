@@ -11,7 +11,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ activeModule, setActiveM
 
   return (
     <div className="hub-app-layout">
-      <aside className={`sidebar ${collapsed ? "collapsed" : ""}`} style={{ width: collapsed ? "72px" : "250px", transition: "width 0.25s ease" }}>
+      <aside className={`sidebar ${collapsed ? "collapsed" : ""}`} style={{ width: collapsed ? "76px" : "250px", flex: "0 0 " + (collapsed ? "76px" : "250px"), transition: "all 0.25s ease" }}>
         <div className="brand" style={{ justifyContent: collapsed ? "center" : "space-between" }}>
           {!collapsed && (
             <div style={{ display: "flex", alignItems: "center", gap: "11px" }}>

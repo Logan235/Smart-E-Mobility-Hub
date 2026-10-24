@@ -230,7 +230,7 @@ export const IncidentSimulationCenter: React.FC = () => {
     }, 700);
   };
 
-  // Phê duyệt đề xuất (BR-09, BR-12)
+  // Approve đề xuất (BR-09, BR-12)
   const handleApproveProposal = (proposalId: string) => {
     const target = proposals.find((p) => p.id === proposalId);
     if (!target) return;
@@ -259,9 +259,9 @@ export const IncidentSimulationCenter: React.FC = () => {
       {/* Top Header */}
       <header className="incident-sim-header">
         <div className="header-title-group">
-          <h1>Incident & Simulation Center (Phân hệ 3)</h1>
+          <h1>Incident & Simulation Center (Module 3 / Simulation)</h1>
           <p>
-            Bàn làm việc vận hành Operator: Xử lý sự cố thời gian thực và Giả lập kịch bản tương lai (What-if)
+            Operator Workspace: Real-time incident management and What-if scenario simulation
           </p>
         </div>
 

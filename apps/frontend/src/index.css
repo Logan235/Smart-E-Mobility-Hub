@@ -136,3 +136,11 @@ code {
   flex-direction: column;
   background: #f6f8f7;
 }
+
+/* Added standard module spacing */
+section {
+    margin-bottom: 24px;
+}
+.page-heading {
+    margin-bottom: 24px;
+}

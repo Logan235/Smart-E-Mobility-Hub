@@ -45,10 +45,10 @@ export const IncidentHandlingPane: React.FC<IncidentHandlingPaneProps> = ({
           <table className="incident-table">
             <thead>
               <tr>
-                <th>Thiết bị / Vị trí</th>
+                <th>Device / Location</th>
                 <th>Mô tả Sự cố</th>
-                <th>Mức độ</th>
-                <th>Trạng thái & Khóa (BR-07)</th>
+                <th>Severity</th>
+                <th>Status & Lock (BR-07)</th>
                 <th>Thao tác Nhanh</th>
               </tr>
             </thead>
