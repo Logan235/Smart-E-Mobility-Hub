@@ -1,3 +1,4 @@
+import React from "react";
 import type { IncidentAlert, ResourceStatus } from "../../types/incident-simulation.types";
 
 interface IncidentHandlingPaneProps {
@@ -16,18 +17,18 @@ export const IncidentHandlingPane: React.FC<IncidentHandlingPaneProps> = ({
       <div className="pane-header">
         <div>
           <h2>
-            <span>⚠️</span> Xử lý Sự cố Thời gian thực (Incident Handling)
+            <span>⚠️</span> Real-time Incident Handling
           </h2>
           <p className="pane-subtitle">
-            Giám sát cảnh báo thiết bị, chuyển đổi trạng thái và thực thi Khóa tài nguyên (BR-07)
+            Hardware alert monitoring, quick status transitions, and resource locking (BR-07)
           </p>
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
           <span className="pane-tag alert-count">
-            {alerts.length} Sự cố
+            {alerts.length} Incidents
           </span>
           <span className="pane-tag" style={{ color: "#c74b47", borderColor: "#fecaca" }}>
-            🔒 {lockedCount} Đang Khóa
+            🔒 {lockedCount} Locked
           </span>
         </div>
       </div>
@@ -35,9 +36,9 @@ export const IncidentHandlingPane: React.FC<IncidentHandlingPaneProps> = ({
       <div className="pane-body">
         {/* Rule note explaining BR-07 */}
         <div className="rule-note">
-          <strong>Quy tắc Nghiệp vụ BR-07:</strong> Khi tài nguyên được gắn trạng thái{" "}
-          <em>Maintenance</em>, <em>Faulty</em>, hoặc <em>Out of Service</em>, hệ thống lập tức kích hoạt biểu tượng{" "}
-          <strong>Khóa (Locked)</strong> để ngăn chặn triệt để mọi yêu cầu đặt chỗ xe điện hoặc lập lịch sạc mới.
+          <strong>Business Rule BR-07:</strong> When a resource is set to{" "}
+          <em>Maintenance</em>, <em>Faulty</em>, or <em>Out of Service</em>, the system immediately applies a{" "}
+          <strong>Locked</strong> state to strictly prevent new EV reservations or charging schedules.
         </div>
 
         {/* Incident Alerts Table */}
@@ -46,10 +47,10 @@ export const IncidentHandlingPane: React.FC<IncidentHandlingPaneProps> = ({
             <thead>
               <tr>
                 <th>Device / Location</th>
-                <th>Mô tả Sự cố</th>
+                <th>Issue Description</th>
                 <th>Severity</th>
                 <th>Status & Lock (BR-07)</th>
-                <th>Thao tác Nhanh</th>
+                <th>Quick Action</th>
               </tr>
             </thead>
             <tbody>
@@ -94,49 +95,29 @@ export const IncidentHandlingPane: React.FC<IncidentHandlingPaneProps> = ({
                       {alert.isLocked ? (
                         <span
                           className="lock-pill"
-                          title="BR-07: Tài nguyên đang khóa, không thể đặt xe hoặc sạc"
+                          title="BR-07: Resource is locked, preventing reservations and charging"
                         >
-                          🔒 ĐÃ KHÓA
+                          🔒 LOCKED
                         </span>
                       ) : (
-                        <span
-                          style={{
-                            fontSize: "10px",
-                            fontWeight: 700,
-                            color: "#087e5b",
-                            backgroundColor: "#eaf6f0",
-                            padding: "2px 6px",
-                            borderRadius: "4px",
-                            width: "fit-content",
-                          }}
-                        >
-                          ✓ SẴN SÀNG
-                        </span>
+                        <span className="unlocked-pill">🟢 UNLOCKED</span>
                       )}
-                      <small style={{ fontSize: "10px", color: "#7c8a83" }}>
-                        Hiện tại: {alert.status}
-                      </small>
+                      <span className="current-status-label">{alert.status}</span>
                     </div>
                   </td>
                   <td>
                     <select
-                      className={`status-select ${
-                        alert.status === "Maintenance"
-                          ? "maintenance"
-                          : alert.status === "Faulty"
-                          ? "faulty"
-                          : ""
-                      }`}
+                      className="status-select"
                       value={alert.status}
                       onChange={(e) =>
                         onStatusChange(alert.id, e.target.value as ResourceStatus)
                       }
-                      aria-label={`Thay đổi trạng thái cho ${alert.deviceCode}`}
+                      aria-label={`Change status of ${alert.deviceCode}`}
                     >
-                      <option value="Active">Active (Mở khóa)</option>
-                      <option value="Maintenance">Maintenance (Bảo trì)</option>
-                      <option value="Faulty">Faulty (Báo hỏng)</option>
-                      <option value="Out of Service">Out of Service (Ngừng HĐ)</option>
+                      <option value="Active">Active (Unlocked)</option>
+                      <option value="Maintenance">Maintenance (Lock)</option>
+                      <option value="Faulty">Faulty (Lock)</option>
+                      <option value="Out of Service">Out of Service (Lock)</option>
                     </select>
                   </td>
                 </tr>

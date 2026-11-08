@@ -1,3 +1,4 @@
+import React from "react";
 import type { SimulationResults } from "../../types/incident-simulation.types";
 
 interface SimulationResultViewProps {
@@ -14,10 +15,10 @@ export const SimulationResultView: React.FC<SimulationResultViewProps> = ({
     <div className="results-section">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h3 className="section-label">
-          <span>📊</span> Kết quả Giả lập & So sánh Mạng lưới (Simulation Results)
+          <span>📊</span> Simulation Results & Network Impact Comparison
         </h3>
         <span style={{ fontSize: "10px", color: "#62716a", fontWeight: 600 }}>
-          Live vs. Projected
+          Live Baseline vs. Projected Shock
         </span>
       </div>
 
@@ -25,7 +26,7 @@ export const SimulationResultView: React.FC<SimulationResultViewProps> = ({
       <div className="metric-comparison-grid">
         {/* Capacity Metric */}
         <div className="metric-card">
-          <div className="metric-title">Công suất phục vụ mạng lưới</div>
+          <div className="metric-title">Network Serving Capacity</div>
           <div className="metric-values">
             <span className="metric-val-live">Live: {results.liveCapacityPercent}%</span>
             <span
@@ -43,22 +44,22 @@ export const SimulationResultView: React.FC<SimulationResultViewProps> = ({
               color: capacityDelta < 0 ? "#c74b47" : "#087e5b",
             }}
           >
-            {capacityDelta < 0 ? `Hao hụt: ${capacityDelta}%` : "Ổn định"}
+            {capacityDelta < 0 ? `Deficit: ${capacityDelta}%` : "Stable"}
           </div>
         </div>
 
         {/* Avg Wait Time Metric */}
         <div className="metric-card">
-          <div className="metric-title">Thời gian chờ dự kiến</div>
+          <div className="metric-title">Estimated User Wait Time</div>
           <div className="metric-values">
-            <span className="metric-val-live">Live: {results.liveAvgWaitMinutes} phút</span>
+            <span className="metric-val-live">Live: {results.liveAvgWaitMinutes} min</span>
             <span
               className="metric-val-projected"
               style={{
                 color: results.projectedAvgWaitMinutes > 15 ? "#c74b47" : "#087e5b",
               }}
             >
-              {results.projectedAvgWaitMinutes} phút
+              {results.projectedAvgWaitMinutes} min
             </span>
           </div>
           <div
@@ -67,7 +68,7 @@ export const SimulationResultView: React.FC<SimulationResultViewProps> = ({
               color: waitDelta > 0 ? "#c74b47" : "#087e5b",
             }}
           >
-            {waitDelta > 0 ? `Tăng thêm: +${waitDelta.toFixed(1)} phút` : "Normal"}
+            {waitDelta > 0 ? `Increase: +${waitDelta.toFixed(1)} min` : "Nominal"}
           </div>
         </div>
       </div>
@@ -86,18 +87,18 @@ export const SimulationResultView: React.FC<SimulationResultViewProps> = ({
         }}
       >
         <span style={{ color: "#b77918", fontWeight: 600 }}>
-          ⚠️ Ước tính hao hụt phục vụ do quá tải & lỗi trạm:
+          ⚠️ Estimated Service Deficit due to Bottlenecks & Hardware Outages:
         </span>
         <strong style={{ color: "#b77918", fontFamily: "Manrope, sans-serif", fontSize: "13px" }}>
-          -{results.lostCapacitySlots} lượt xe / giờ
+          -{results.lostCapacitySlots} slots / hour lost
         </strong>
       </div>
 
       {/* Bottlenecks Bar Visualization */}
       <div className="bottleneck-box">
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", fontWeight: 700, color: "#172b25" }}>
-          <span>Phân tích Điểm nghẽn Trọng yếu (Hub Bottlenecks)</span>
-          <span style={{ fontSize: "10px", color: "#8b9992" }}>Mức tải dự phóng</span>
+          <span>Hub Bottlenecks & Capacity Strain Analysis</span>
+          <span style={{ fontSize: "10px", color: "#8b9992" }}>Projected Load Level</span>
         </div>
 
         {results.bottlenecks.map((item) => (
@@ -115,7 +116,7 @@ export const SimulationResultView: React.FC<SimulationResultViewProps> = ({
                   fontWeight: 700,
                 }}
               >
-                {item.projectedLoad}% {item.status === "Critical" ? "(Nghẽn nghiêm trọng)" : item.status === "Warning" ? "(Warning nghẽn)" : "(Thông suốt)"}
+                {item.projectedLoad}% {item.status === "Critical" ? "(Severe Bottleneck)" : item.status === "Warning" ? "(Elevated Strain)" : "(Optimal)"}
               </span>
             </div>
             <div className="bar-track">

@@ -21,7 +21,7 @@ export interface SimulationScenario {
   targetHubId: string;
   chargerFailureRate: number; // 0 to 100%
   demandSurgeRate: number; // 0 to 150%
-  simulationWindow: string; // e.g. "Peak Hours (16:00 - 19:00)"
+  simulationWindow: string; // e.g. "Peak Hours (16:30 - 19:00)"
 }
 
 export interface BottleneckItem {
@@ -43,14 +43,71 @@ export interface SimulationResults {
 
 export type MitigationType = "REROUTE" | "RESCHEDULE_CHARGING" | "DEPLOY_BUFFER";
 
+export interface AdjustableParameter {
+  id: string;
+  name: string;
+  currentValue: number;
+  unit: string;
+  min: number;
+  max: number;
+  step: number;
+  description: string;
+}
+
+export interface AlternativeHub {
+  hubId: string;
+  hubName: string;
+  distanceMeters: number;
+  currentOccupancy: number;
+  availableSlots: number;
+  isEligible: boolean;
+}
+
+export interface FeasibilityCheck {
+  isFeasible: boolean;
+  stateMatch: boolean;
+  lastCheckedAt: string;
+  constraintsChecked: { name: string; passed: boolean; detail: string }[];
+  warningMessage?: string;
+}
+
+export interface OperationalAction {
+  actionId: string;
+  recommendationId: string;
+  title: string;
+  actionType: string;
+  targetHubId: string;
+  targetHubName: string;
+  affectedResources: string[];
+  status: "SCHEDULED" | "DISPATCHED" | "APPLIED" | "PENDING_REVIEW_FAILED";
+  createdAt: string;
+  dispatchedTo: string;
+  liveNetworkApplied: boolean;
+  operatorNotes?: string;
+}
+
 export interface MitigationProposal {
   id: string;
+  code: string;
   title: string;
   description: string;
   type: MitigationType;
   impactGain: string;
   targetHubId: string;
   targetHubName: string;
+  affectedResources: string[];
+  expectedImpact: {
+    capacityGainPercent: number;
+    waitReductionMinutes: number;
+    relievedSlotsPerHour: number;
+    reliabilityScore: number;
+  };
+  status: "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "ARCHIVED";
   approved: boolean;
   approvedAt?: string;
+  adjustableParams: AdjustableParameter[];
+  alternativeHubs: AlternativeHub[];
+  feasibility: FeasibilityCheck;
+  coordinationAction?: OperationalAction;
+  auditTrail: { timestamp: string; operatorId: string; decision: string; summary: string }[];
 }
