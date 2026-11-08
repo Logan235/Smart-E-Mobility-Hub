@@ -9,6 +9,7 @@ export enum EVStatus {
 
 export class SharedEV {
   id: string;
+  code: string;
   name: string;
   type: VehicleType;
   hubId: string;

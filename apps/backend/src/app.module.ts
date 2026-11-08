@@ -4,17 +4,15 @@ import { AppService } from './app.service.js';
 import { SharedEvModule } from './modules/shared-ev/shared-ev.module.js';
 import { SimulationModule } from './modules/simulation/simulation.module.js';
 import { CoordinationModule } from './modules/coordination/coordination.module.js';
+import { MonitoringModule } from './modules/monitoring/monitoring.module.js';
 
 @Module({
   imports: [
     SharedEvModule,
     SimulationModule,
     CoordinationModule,
+    MonitoringModule,
   ],
-import { MonitoringModule } from './modules/monitoring/monitoring.module.js';
-
-@Module({
-  imports: [SharedEvModule, MonitoringModule],
   controllers: [AppController],
   providers: [AppService],
 })

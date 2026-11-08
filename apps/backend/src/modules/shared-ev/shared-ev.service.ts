@@ -68,6 +68,11 @@ export class SharedEvService implements OnModuleInit, OnModuleDestroy {
     return this.repo.findAllVehicles();
   }
 
+  /** Alias for getAllVehicles() to support adapters. */
+  findAll(): SharedEV[] {
+    return this.getAllVehicles();
+  }
+
   /**
    * Searches reservable vehicles: status AVAILABLE and battery >= the required level.
    * Only Available vehicles are returned (post-condition of UC-STU-GetEV).
